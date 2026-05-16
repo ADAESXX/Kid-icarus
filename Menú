@@ -1,0 +1,92 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class Menu {
+
+    public:
+
+        void mostrarMenu() {
+
+            int opcion;
+            bool juegoActivo = true;
+
+            while (juegoActivo) {
+
+                system("cls");
+
+                cout << "======================================" << endl;
+                cout << "           KID ICARUS MENU            " << endl;
+                cout << "======================================" << endl;
+                cout << "1. Iniciar Juego" << endl;
+                cout << "2. Instrucciones" << endl;
+                cout << "3. Puntajes" << endl;
+                cout << "4. Salir" << endl;
+                cout << "======================================" << endl;
+                cout << "Seleccione una opcion: ";
+                cin >> opcion;
+
+                switch(opcion) {
+
+                    case 1:
+                        iniciarJuego();
+                        break;
+
+                    case 2:
+                        instrucciones();
+                        break;
+
+                    case 3:
+                        mostrarPuntajes();
+                        break;
+
+                    case 4:
+                        cout << "\nSaliendo del juego..." << endl;
+                        juegoActivo = false;
+                        break;
+
+                    default:
+                        cout << "\nOpcion invalida." << endl;
+                }
+
+                system("pause");
+            }
+        }
+
+        void iniciarJuego() {
+
+            system("cls");
+
+            cout << "Iniciando juego..." << endl;
+        }
+
+        void instrucciones() {
+
+            system("cls");
+
+            cout << "=========== INSTRUCCIONES ===========" << endl;
+            cout << "A -> Mover izquierda" << endl;
+            cout << "D -> Mover derecha" << endl;
+            cout << "W -> Saltar" << endl;
+            cout << "SPACE -> Disparar" << endl;
+        }
+
+        void mostrarPuntajes() {
+
+            system("cls");
+
+            cout << "============= PUNTAJES ==============" << endl;
+            cout << "Jugador 1: 1500 puntos" << endl;
+            cout << "Jugador 2: 1200 puntos" << endl;
+        }
+};
+
+int main() {
+
+    Menu menu;
+
+    menu.mostrarMenu();
+
+    return 0;
+}
