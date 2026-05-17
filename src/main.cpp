@@ -4,19 +4,21 @@
 //Autor 2: Dulce Granados
 //Fecha: 16/05/2026
 //Modificaciones realizadas por: Abigail Escobar
-
-
-#include <ncurses.h>
+#include "menu.h"
+#include "pantallas.h"
+#include <thread>
+#include <chrono>
 
 using namespace std;
-
 int main() {
-    // Configuración de ncurses para el menú
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-    curs_set(0);
+
+    Pantallas pantallas;
+    pantallas.inicio();
+
+    this_thread::sleep_for(chrono::seconds(3));
+
+    Menu menu;
+    menu.mostrarMenu();
 
     return 0;
 }

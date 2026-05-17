@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void inicio(){
+void Pantallas::inicio(){
     system("clear");
     cout << "═══════════════════════════════════════════════════════════════════════" << endl;
     cout << endl;
@@ -32,7 +32,7 @@ void inicio(){
 
 }
 
-void victoria() {
+void Pantallas::victoria() {
 
     system("clear");
 
@@ -44,7 +44,7 @@ void victoria() {
     cout << " ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" << endl;
 }
 
-void derrota() {
+void Pantallas::derrota() {
 
     system("clear");
     cout << " ██████╗  █████╗ ███╗   ███╗███████╗" << endl;

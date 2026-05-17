@@ -39,6 +39,7 @@ class Jugador {
         //Getters para obtener la posición y el sprite del jugador
         int getX();
         int getY();
+        string getSprite();
 
 };
 //Constructor de la clase Jugador

@@ -7,8 +7,12 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <limits>
+#include <thread>
+#include <chrono>
 
 #include "menu.h"
+#include "juego.h"
 
 using namespace std;
 // Implementación de los métodos de la clase Menu
@@ -16,9 +20,8 @@ using namespace std;
 void Menu::mostrarMenu() {
 
     int opcion;
-    bool juegoActivo = true;
 
-    while (juegoActivo) {
+    while (true) {
 
         system("clear");
 
@@ -31,7 +34,10 @@ void Menu::mostrarMenu() {
         cout << "4. Salir" << endl;
         cout << "======================================" << endl;
         cout << "Seleccione una opcion: ";
+
         cin >> opcion;
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch(opcion) {
 
@@ -41,25 +47,27 @@ void Menu::mostrarMenu() {
 
             case 2:
                 instrucciones();
+
+                cout << "\nPresione ENTER para continuar...";
+                cin.get();
                 break;
 
             case 3:
                 mostrarPuntajes();
+
+                cout << "\nPresione ENTER para continuar...";
+                cin.get();
                 break;
 
             case 4:
                 cout << "\nSaliendo del juego..." << endl;
-                juegoActivo = false;
-                break;
+                return;
 
             default:
                 cout << "\nOpcion invalida." << endl;
-        }
-        // Espera a que el usuario presione ENTER antes de mostrar el menú nuevamente
-        if (juegoActivo) {
-            cout << "\nPresione ENTER para continuar...";
-            cin.ignore();
-            cin.get();
+
+                cout << "\nPresione ENTER para continuar...";
+                cin.get();
         }
     }
 }
@@ -69,6 +77,11 @@ void Menu::iniciarJuego() {
     system("clear");
 
     cout << "Iniciando juego..." << endl;
+    this_thread::sleep_for(chrono::seconds(2));
+
+    system("clear");
+    Juego juego;
+    juego.iniciar();
 }
 
 void Menu::instrucciones() {
