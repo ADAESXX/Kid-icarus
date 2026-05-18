@@ -7,7 +7,7 @@
 #define PROYECTIL_H
 
 #include <string>
-using namespace std;
+
 
 class Proyectil {
     //Atributos del proyectil
@@ -15,7 +15,7 @@ class Proyectil {
         int x;
         int y;
         int velocidad;
-        string sprite;
+        std::string sprite;
     //Métodos del proyectil
     public:
         //Constructor para inicializar el proyectil con su posición, velocidad y sprite
@@ -27,6 +27,6 @@ class Proyectil {
         //Getters para obtener la posición y el sprite del proyectil
         int getX();
         int getY();
-        string getSprite();
+        std::string getSprite();
 
 };

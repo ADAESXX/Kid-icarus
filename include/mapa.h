@@ -6,23 +6,24 @@
 #ifndef MAPA_H
 #define MAPA_H
 
+#include <vector>
 #include <string>
-using namespace std;
 
 class Mapa {
-    //Atributos del mapa
-    private:
-        int ancho;
-        int alto;
-        string fondo;
-    //Métodos del mapa
-    public:
-        //Constructor para inicializar el mapa con su tamaño y fondo
-        Mapa(int ancho, int alto, string fondo);
-        //Getters para obtener el tamaño y el fondo del mapa
-        int getAncho();
-        int getAlto();
-        string getFondo();
+
+private:
+
+    std::vector<std::string> nivel;
+
+public:
+
+    void cargarNivel(
+        const std::vector<std::string>& nuevoNivel
+    );
+
+    bool esSolido(int x, int y) const;
+
+    const std::vector<std::string>& getNivel() const;
 };
-//Constructor de la clase Mapa
+
 #endif

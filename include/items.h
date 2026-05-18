@@ -7,8 +7,6 @@
 #define ITEMS_H
 
 #include <string>
-using namespace std;
-
 class Items {
     //Atributos de los items
     private:
@@ -19,7 +17,7 @@ class Items {
             //2. Armas para aumentar el poder de ataque
             //3. Escudos para protegerse de los enemigos
         int tipo;
-        string sprite;
+        std::string sprite;
     //Métodos de los items
     public:
         //Constructor para inicializar el item con su posición y sprite
@@ -29,7 +27,7 @@ class Items {
         //Getters para obtener la posición y el sprite del item
         int getX();
         int getY();
-        string getSprite();
+        std::string getSprite();
         int getTipo();
 
 };

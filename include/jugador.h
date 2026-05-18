@@ -6,41 +6,50 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
 
-#include <string>
-using namespace std;
+#include "entidad.h"
+#include "mapa.h"
 
-class Jugador {
-    //Atributos del jugador
+class Jugador : public Entidad {
+
     private:
-        int x;
-        int y;
-        string sprite;
-    //Métodos del jugador
-    public:
-        //Constructor para inicializar el jugador con su posición y sprite
-        Jugador(int x, int y);
-        //movimientos
-        void moverIzquierda(int dx);
-        void moverDerecha(int dy);
-        void saltar();
-        void caer();
-        //Acciones del jugador
-        void disparar(int x, int y);
-        void morir();
-        void recogerCorazon();
-        //Gravedad y actualización
-        void aplicarGravedad();
-        void actualizar();
-        //Informacion importante del jugador
-        void puntaje();
-        void vidas();
-        void enemigosDerrotados();
-        void zonasNuevas();
-        //Getters para obtener la posición y el sprite del jugador
-        int getX();
-        int getY();
-        string getSprite();
 
+        bool saltando;
+
+        int fuerzaSalto;
+
+        int vidas;
+
+        int puntaje;
+        bool moviendoIzquierda;
+
+        bool moviendoDerecha;
+
+    public:
+
+        Jugador(int x, int y);
+
+        void moverIzquierda(Mapa& mapa);
+
+        void moverDerecha(Mapa& mapa);
+
+        void saltar();
+
+        void disparar();
+
+        void morir();
+
+        void recogerCorazon();
+
+        void aplicarGravedad(Mapa& mapa);
+
+        void actualizar(Mapa& mapa) override;
+
+        int getVidas() const;
+
+        int getPuntaje() const;
+        void setMoviendoIzquierda(bool estado);
+
+        void setMoviendoDerecha(bool estado);
 };
-//Constructor de la clase Jugador
+
 #endif

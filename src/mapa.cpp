@@ -5,21 +5,26 @@
 
 #include "mapa.h"
 
-Mapa::Mapa(int ancho, int alto, string fondo) {
-
-    this->ancho = ancho;
-    this->alto = alto;
-    this->fondo = fondo;
+void Mapa::cargarNivel(
+    const std::vector<std::string>& nuevoNivel
+) {
+    nivel = nuevoNivel;
 }
 
-int Mapa::getAncho() {
-    return ancho;
+bool Mapa::esSolido(int x, int y) const {
+
+    if(y < 0 || y >= nivel.size())
+        return true;
+
+    if(x < 0 || x >= nivel[y].size())
+        return true;
+
+    char bloque = nivel[y][x];
+
+    return bloque == '=' || bloque == '#';
 }
 
-int Mapa::getAlto() {
-    return alto;
-}
+const std::vector<std::string>& Mapa::getNivel() const {
 
-string Mapa::getFondo() {
-    return fondo;
+    return nivel;
 }

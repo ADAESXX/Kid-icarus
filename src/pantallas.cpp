@@ -4,61 +4,184 @@
 //Fecha: 16/05/2026
 #include <iostream>
 #include <cstdlib>
-
+#include <ncurses.h>
+#include <cstring>
 #include "pantallas.h"
 
 using namespace std;
 
-void Pantallas::inicio(){
-    system("clear");
-    cout << "═══════════════════════════════════════════════════════════════════════" << endl;
-    cout << endl;
+void imprimirCentro(int y, const char* texto) {
 
-    cout << "██╗  ██╗██╗██████╗     ██╗ ██████╗ █████╗ ██████╗ ██╗   ██╗███████" << endl;
-    cout << "██║ ██╔╝██║██╔══██╗    ██║██╔════╝██╔══██╗██╔══██╗██║   ██║██╔════╝" << endl;
-    cout << "█████╔╝ ██║██║  ██║    ██║██║     ███████║██████╔╝██║   ██║███████╗" << endl;
-    cout << "██╔═██╗ ██║██║  ██║    ██║██║     ██╔══██║██╔══██╗██║   ██║╚════██║" << endl;
-    cout << "██║  ██╗██║██████╔╝    ██║╚██████╗██║  ██║██║  ██║╚██████╔╝███████║" << endl;
-    cout << "╚═╝  ╚═╝╚═╝╚═════╝     ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝" << endl;
-    cout <<endl;
-    cout << "═══════════════════════════════════════════════════════════════════════" << endl;
-    cout << endl;
-    cout << "                    ✦  W E L C O M E  ✦" << endl;
-    cout << endl;
-    cout << "                El reino celestial te necesita" << endl;
-    cout << endl;
-    cout << "═══════════════════════════════════════════════════════════════════════" << endl;
-        
+    int x = (COLS - strlen(texto)) / 2;
 
+    mvprintw(y, x, "%s", texto);
+}
+
+void Pantallas::inicio() {
+    
+    clear();
+    start_color();
+    bkgd(COLOR_PAIR(1));
+    clear();
+    //se define el color de fondo para todas las pantallas
+    refresh();
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(2, COLOR_CYAN, COLOR_BLACK);
+    init_pair(3, COLOR_WHITE, COLOR_BLACK);
+    init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
+
+    attron(COLOR_PAIR(2));
+
+    int anchoColumnas = 12;
+    int espacioLogo = 70;
+
+    int anchoTotal = espacioLogo + (anchoColumnas * 2);
+
+    int inicioX = (COLS - anchoTotal) / 2;
+
+    int xIzq = inicioX;
+    int xDer = inicioX + espacioLogo + anchoColumnas;
+
+    // alas
+    mvprintw(4, xIzq,  R"( \\    // )");
+    mvprintw(5, xIzq,  R"(  \\__//  )");
+    mvprintw(6, xIzq,  R"( /|##|\\ )");
+
+    mvprintw(4, xDer,  R"( \\    // )");
+    mvprintw(5, xDer,  R"(  \\__//  )");
+    mvprintw(6, xDer,  R"( /|##|\\ )");
+
+    // columnas superiores
+    mvprintw(7, xIzq, "============");
+    mvprintw(8, xIzq, "|==========|");
+
+    mvprintw(7, xDer, "============");
+    mvprintw(8, xDer, "|==========|");
+
+    // cuerpo
+    for(int i = 9; i < 31; i++) {
+
+        mvprintw(i, xIzq, "|  ||||  |");
+        mvprintw(i, xDer, "|  ||||  |");
+    }
+
+    // base
+    mvprintw(31, xIzq, "|==========|");
+    mvprintw(32, xIzq, "============");
+
+    mvprintw(31, xDer, "|==========|");
+    mvprintw(32, xDer, "============");
+
+    attroff(COLOR_PAIR(2));
+
+
+    // LOGO
+    const char* logo[] = {
+
+        R"( _  ___ ____    ___ ____    _    ____  _   _ ____ )",
+        R"(| |/ (_)  _ \  |_ _/ ___|  / \  |  _ \| | | / ___|)",
+        R"(| ' /| | | | |  | | |     / _ \ | |_) | | | \___ \)",
+        R"(| . \| | |_| |  | | |___ / ___ \|  _ <| |_| |___) |)",
+        R"(|_|\_\_|____/  |___\____/_/   \_\_| \_\\___/|____/)"
+    };
+
+    int lineasLogo = sizeof(logo) / sizeof(logo[0]);
+
+    // usar una línea visualmente equilibrada
+    int anchoLogo = strlen(logo[0]);
+    int xLogo = (COLS - anchoLogo) / 2;
+
+    attron(COLOR_PAIR(1) | A_BOLD);
+
+    for(int i = 0; i < lineasLogo; i++) {
+
+        mvprintw(4 + i, xLogo, "%s", logo[i]);
+    }
+
+    attroff(COLOR_PAIR(1) | A_BOLD);
+
+    // subtítulo
+    attron(COLOR_PAIR(4) | A_BOLD);
+
+    imprimirCentro(18, "* WELCOME *");
+
+    attroff(COLOR_PAIR(4) | A_BOLD);
+
+    attron(COLOR_PAIR(3));
+
+    imprimirCentro(22, "El reino celestial te necesita");
+
+    attroff(COLOR_PAIR(3));
+
+    attron(COLOR_PAIR(1) | A_BLINK);
+
+    imprimirCentro(28, "Preparando aventura...");
+
+    attroff(COLOR_PAIR(1) | A_BLINK);
+    attron(A_BOLD);
+    
+
+    refresh();
 }
 
 void Pantallas::victoria() {
 
-    system("clear");
+    clear();
+    start_color();
+    bkgd(COLOR_PAIR(1));
+    clear();
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
 
-    cout << "██╗    ██╗██╗███╗   ██╗" << endl;
-    cout << "██║    ██║██║████╗  ██║╝" << endl;
-    cout << "██║ █╗ ██║██║██╔██╗ ██║" << endl;
-    cout << "██║███╗██║██║██║╚██╗██║" << endl;
-    cout << "╚███╔███╔╝██║██║ ╚████║" << endl;
-    cout << " ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" << endl;
+
+    int xCentro = 50;
+
+    attron(COLOR_PAIR(1) | A_BOLD);
+
+    mvprintw(10, xCentro, R"(__        _____ _   _ )");
+    mvprintw(11, xCentro, R"(\ \      / /_ _| \ | |)");
+    mvprintw(12, xCentro, R"( \ \ /\ / / | ||  \| |)");
+    mvprintw(13, xCentro, R"(  \ V  V /  | || |\  |)");
+    mvprintw(14, xCentro, R"(   \_/\_/  |___|_| \_|)");
+
+    mvprintw(18, xCentro - 2, "YOU WIN!");
+
+    attroff(COLOR_PAIR(1) | A_BOLD);
+
+    refresh();
 }
 
 void Pantallas::derrota() {
 
-    system("clear");
-    cout << " ██████╗  █████╗ ███╗   ███╗███████╗" << endl;
-    cout << "██╔════╝ ██╔══██╗████╗ ████║██╔════╝" << endl;
-    cout << "██║  ███╗███████║██╔████╔██║█████╗  " << endl;
-    cout << "██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  " << endl;
-    cout << "╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗" << endl;
-    cout << " ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ " << endl;
+    clear();
+    start_color();
+    bkgd(COLOR_PAIR(1));
+    clear();
+    
+    init_pair(5, COLOR_RED, COLOR_BLACK);
 
-    cout <<" ██████╗ ██╗   ██╗███████╗██████╗" << endl;
-    cout <<"██╔═══██╗██║   ██║██╔════╝██╔══██╗" << endl;
-    cout <<"██║   ██║██║   ██║█████╗  ██████╔╝" << endl;
-    cout <<"██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗" << endl;
-    cout <<"╚██████╔╝ ╚████╔╝ ███████╗██║  ██║" << endl;
-    cout <<" ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝" << endl;
+    int xCentro = 45;
 
+    attron(COLOR_PAIR(5) | A_BOLD);
+
+    const char* gameOver[] = {
+
+        R"(  ____    _    __  __ _____    _____     _______ ____  )",
+        R"( / ___|  / \  |  \/  | ____|  / _ \ \   / / ____|  _ \ )",
+        R"(| |  _  / _ \ | |\/| |  _|   | | | \ \ / /|  _| | |_) |)",
+        R"(| |_| |/ ___ \| |  | | |___  | |_| |\ V / | |___|  _ < )",
+        R"( \____/_/   \_\_|  |_|_____|  \___/  \_/  |_____|_| \_\)"
+    };
+
+    int lineas = sizeof(gameOver) / sizeof(gameOver[0]);
+
+    for(int i = 0; i < lineas; i++) {
+
+        mvprintw(10 + i, xCentro, "%s", gameOver[i]);
+    }
+
+    mvprintw(18, 58, "GAME OVER");
+
+    attroff(COLOR_PAIR(5) | A_BOLD);
+
+    refresh();
 }
