@@ -18,9 +18,17 @@ plataformas y límites del escenario.
 • Los hilos deben sincronizarse para mantener el estado del juego coherente y evitar
 condiciones de carrera. Para esto, podrán utilizar mutex, semáforos, variables de condición o
 barreras.
+
 • Mostrar en consola la posición del jugador, enemigos, proyectiles, plataformas, vidas y
 puntuación en tiempo real.
 • Registrar cuando el jugador elimine enemigos, pierda vidas o alcance una nueva zona del
 escenario.
 • El juego finalizará cuando el jugador pierda todas sus vidas o alcance la parte superior/final
 del nivel.
+
+
+
+
+Para compilar: 
+g++ src/*.cpp -Iinclude -o kidicarus -lncurses
+./kidicarus
