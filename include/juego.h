@@ -9,38 +9,33 @@
 #include "jugador.h"
 #include "enemigo.h"
 #include "mapa.h"
-
+#include "proyectil.h"
+//el vector se usa para almacenar múltiples enemigos y proyectiles en el juego, lo que permite gestionar dinámicamente la cantidad de entidades presentes en el mapa
 #include <vector>
 
 class Juego {
 
-private:
+    private:
+        //atributos
+        Jugador jugador;
+        std::vector<Enemigo> enemigos;
+        std::vector<Proyectil> proyectiles;
+        Mapa mapa;
+        bool ejecutando;
+        bool gano = false;
+        bool perdio = false;
 
-    Jugador jugador;
-
-    std::vector<Enemigo> enemigos;
-
-    Mapa mapa;
-
-    bool ejecutando;
-
-public:
-
-    Juego();
-
-    void iniciar();
-
-    void loop();
-
-    void procesarEntrada();
-
-    void actualizar();
-
-    void renderizar();
-
-    void cargarNivel();
-
-    void terminar();
+    public:
+        //PARTE PRINCIPAL DEL JUEGO - fundamental para iniciar el juego, procesar la lógica principal y renderizar los gráficos
+        Juego();
+        void iniciar();
+        void loop();
+        void procesarEntrada();
+        void actualizar();
+        //renderizar es el método encargado de dibujar el estado actual del juego en la pantalla, mostrando al jugador, los enemigos, los proyectiles y el mapa
+        void renderizar();
+        void cargarNivel();
+        void terminar();
 };
 
 #endif

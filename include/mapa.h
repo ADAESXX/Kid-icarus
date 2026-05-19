@@ -11,19 +11,16 @@
 
 class Mapa {
 
-private:
+    private:
+        //el vector de strings representa el nivel del juego, donde cada string es una fila del mapa y cada carácter representa un bloque o espacio vacío
+        std::vector<std::string> nivel;
 
-    std::vector<std::string> nivel;
-
-public:
-
-    void cargarNivel(
-        const std::vector<std::string>& nuevoNivel
-    );
-
-    bool esSolido(int x, int y) const;
-
-    const std::vector<std::string>& getNivel() const;
+    public:
+        //métodos de la clase Mapa
+        void cargarNivel(const std::vector<std::string>& nuevoNivel);
+        //sirve para verificar si una posición específica en el mapa es sólida y no se puede atravesar
+        bool esSolido(int x, int y) const;
+        const std::vector<std::string>& getNivel() const;
 };
 
 #endif

@@ -2,6 +2,7 @@
 //Descripción: Implementación de las funciones para mostrar las pantallas de inicio, victoria y derrota del juego Kid Icarus    
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+
 #include <iostream>
 #include <cstdlib>
 #include <ncurses.h>
@@ -11,7 +12,7 @@
 using namespace std;
 
 void imprimirCentro(int y, const char* texto) {
-
+    //strlen se usa para obtener la longitud del texto, lo que es necesario para calcular la posición horizontal correcta para centrar el texto en la pantalla
     int x = (COLS - strlen(texto)) / 2;
 
     mvprintw(y, x, "%s", texto);
@@ -21,9 +22,9 @@ void Pantallas::inicio() {
     
     clear();
     start_color();
+    //se define el color de fondo para todas las pantallas
     bkgd(COLOR_PAIR(1));
     clear();
-    //se define el color de fondo para todas las pantallas
     refresh();
     init_pair(1, COLOR_YELLOW, COLOR_BLACK);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
@@ -125,7 +126,7 @@ void Pantallas::inicio() {
 }
 
 void Pantallas::victoria() {
-
+    //se define el color de fondo para todas las pantallas
     clear();
     start_color();
     bkgd(COLOR_PAIR(1));
@@ -171,9 +172,9 @@ void Pantallas::derrota() {
         R"(| |_| |/ ___ \| |  | | |___  | |_| |\ V / | |___|  _ < )",
         R"( \____/_/   \_\_|  |_|_____|  \___/  \_/  |_____|_| \_\)"
     };
-
+    
     int lineas = sizeof(gameOver) / sizeof(gameOver[0]);
-
+    //usar una línea visualmente equilibrada
     for(int i = 0; i < lineas; i++) {
 
         mvprintw(10 + i, xCentro, "%s", gameOver[i]);

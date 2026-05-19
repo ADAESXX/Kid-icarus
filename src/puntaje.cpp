@@ -1,3 +1,9 @@
+// Nombre del archivo: puntaje.cpp
+// Descripción: Implementación de la clase Puntaje para el juego Kid Icarus
+// Autor: Abigail Escobar
+// Fecha: 18/05/2026
+
+//Falta aplicarlo a la lógica real del juego
 #include <iostream>
 
 using namespace std;
@@ -5,6 +11,7 @@ using namespace std;
 class Puntaje {
 
     private:
+    //atributos
         int corazones;
         int vidas;
         int enemigos;
@@ -21,24 +28,22 @@ class Puntaje {
         }
 
         void agregarCorazon() {
-
+            //cada vez que el jugador recoge un corazón, se incrementa el contador de corazones y se recalcula el puntaje total
             corazones++;
             calcularPuntaje();
         }
 
         void eliminarEnemigo() {
-
+            //cada vez que el jugador elimina un enemigo, se incrementa el contador de enemigos eliminados y se recalcula el puntaje total
             enemigos++;
             puntajeTotal += 100;
         }
 
         void perderVida() {
-
             vidas--;
         }
 
         void calcularPuntaje() {
-
             puntajeTotal = (corazones * 10) + (enemigos * 100);
         }
 
@@ -54,19 +59,3 @@ class Puntaje {
             cout << "============================" << endl;
         }
 };
-
-int main() {
-
-    Puntaje jugador;
-
-    jugador.agregarCorazon();
-    jugador.agregarCorazon();
-
-    jugador.eliminarEnemigo();
-
-    jugador.perderVida();
-
-    jugador.mostrarPuntaje();
-
-    return 0;
-}

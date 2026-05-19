@@ -8,6 +8,7 @@
 class Pantallas {
 
     public:
+        //métodos para mostrar las diferentes pantallas del juego
         void inicio();
         void victoria();
         void derrota();

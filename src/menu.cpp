@@ -24,19 +24,20 @@ using namespace std;
 
 
 void Menu::mostrarMenu() {
-
+    //opcion se usa para rastrear la opción actualmente seleccionada en el menú
     int opcion = 1;
     int tecla;
-
+    //sirve para habilitar la captura de teclas especiales como las flechas del teclado, lo que es esencial para navegar por el menú usando las flechas arriba y abajo
+    //pertenece a la librería ncurses
     keypad(stdscr, TRUE);
-
+    //ciclo infinito
     while(true) {
 
         clear();
-
+        //attron se usa para activar atributos de texto como negrita, subrayado o colores
         attron(A_BOLD);
 
-
+        //mvprintw se usa para imprimir texto en una posición específica de la pantalla, lo que permite crear un diseño visual atractivo para el menú
         mvprintw(5, 50, "======================================");
         mvprintw(6, 55, "KID ICARUS MENU");
         mvprintw(7, 50, "======================================");
@@ -62,11 +63,11 @@ void Menu::mostrarMenu() {
         attroff(A_BOLD);
 
         refresh();
-
+        //getch se usa para capturar la tecla presionada por el usuario, lo que permite navegar por el menú y seleccionar opciones
         tecla = getch();
 
         switch(tecla) {
-
+            //ncurses define constantes para las teclas de flecha, lo que facilita la detección de la entrada del usuario para navegar por el menú
             case KEY_UP:
                 opcion--;
                 if(opcion < 1)
@@ -78,7 +79,7 @@ void Menu::mostrarMenu() {
                 if(opcion > 4)
                     opcion = 1;
                 break;
-
+            //la tecla ENTER se representa con el código 10 en ncurses, lo que permite ejecutar la acción correspondiente a la opción seleccionada cuando el usuario presiona ENTER
             case 10:
 
                 switch(opcion) {
@@ -106,12 +107,14 @@ void Menu::mostrarMenu() {
         }
     }
 }
-/////////////////////////////////////////////FALTA ESTE
+
 void Menu::iniciarJuego() {
+    //inicialización de ncurses para el juego, lo que permite mostrar gráficos y capturar la entrada del usuario de manera más avanzada durante el juego
     initscr();
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
+    //es de ncurses y permite que getch() no bloquee la ejecución del programa
     nodelay(stdscr, TRUE);
     clear();
     mvprintw(10, 55, "Iniciando juego...");
@@ -120,16 +123,13 @@ void Menu::iniciarJuego() {
     clear();
     Juego juego;
     juego.iniciar();
-
+    //endwin se usa para finalizar ncurses y restaurar la configuracion de la terminal
     endwin();
 }
 
 void Menu::instrucciones() {
-
     clear();
-
     start_color();
-
     init_pair(1, COLOR_YELLOW, COLOR_BLACK);
     init_pair(2, COLOR_CYAN, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
@@ -243,7 +243,7 @@ void Menu::instrucciones() {
     }
     
 }
-
+//hay que mejorar esta función para mostrar puntajes reales del juego, por ahora solo se muestran puntajes de ejemplo
 void Menu::mostrarPuntajes() {
 
     clear();

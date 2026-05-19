@@ -8,25 +8,25 @@
 
 #include <string>
 
-
 class Proyectil {
-    //Atributos del proyectil
     private:
+    //atributos del proyectil
         int x;
         int y;
+        int direccion; 
         int velocidad;
+        bool activo;
         std::string sprite;
-    //Métodos del proyectil
-    public:
-        //Constructor para inicializar el proyectil con su posición, velocidad y sprite
-        Proyectil(int x, int y, int velocidad);
-        //movimientos
-        void mover();
-        void colisionar();
-        void desaparecer();
-        //Getters para obtener la posición y el sprite del proyectil
-        int getX();
-        int getY();
-        std::string getSprite();
 
+    public:
+        //métodos de la clase Proyectil
+        Proyectil(int x, int y, int direccion);
+        void mover();
+        int getX() const;
+        int getY() const;
+        bool estaActivo() const;
+        void desactivar();
+        std::string getSprite() const;
 };
+
+#endif

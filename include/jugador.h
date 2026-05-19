@@ -12,44 +12,34 @@
 class Jugador : public Entidad {
 
     private:
-
+        //atributos del jugador
         bool saltando;
-
         int fuerzaSalto;
-
         int vidas;
-
         int puntaje;
-        bool moviendoIzquierda;
-
-        bool moviendoDerecha;
-
+        //variables para manejar movimiento suave y colisiones por pixel
+        int direccionX;
+        float vy;
+        float yReal;
+        float xReal;
+        float vx;
     public:
-
+        //constructor para inicializar el jugador con su posición y sprite
         Jugador(int x, int y);
-
+        //métodos 
         void moverIzquierda(Mapa& mapa);
-
         void moverDerecha(Mapa& mapa);
-
         void saltar();
-
         void disparar();
-
         void morir();
-
+        //algunas aun no se impplementan
         void recogerCorazon();
-
         void aplicarGravedad(Mapa& mapa);
-
         void actualizar(Mapa& mapa) override;
-
         int getVidas() const;
-
         int getPuntaje() const;
-        void setMoviendoIzquierda(bool estado);
+        int getDireccionX() const { return direccionX; }
 
-        void setMoviendoDerecha(bool estado);
 };
 
 #endif

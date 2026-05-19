@@ -8,7 +8,7 @@
 class Menu {
 
     public:
-        
+        //métodos de la clase Menu
         void mostrarMenu();
         void iniciarJuego();
         void instrucciones();
