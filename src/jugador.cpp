@@ -115,8 +115,11 @@ void Jugador::actualizar(Mapa& mapa) {
     }
 
 }
-//falta implementar
+
+//implementación del disparo del jugador
 void Jugador::disparar() {
+
+    puntaje += 10;
 }
 
 void Jugador::morir() {

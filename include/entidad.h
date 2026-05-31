@@ -25,8 +25,12 @@ class Entidad {
     public:
 
         Entidad(int x, int y, std::string sprite);
-        //método para actualizar la entidad, que debe ser implementado por las clases derivadas como Jugador y Enemigo
+
+        virtual ~Entidad() = default;
+
+        //método para actualizar la entidad
         virtual void actualizar(Mapa& mapa) = 0;
+
         //Getters para obtener la posición y el sprite de la entidad
         int getX() const;
         int getY() const;

@@ -18,18 +18,24 @@ class Items {
             //3. Escudos para protegerse de los enemigos
         int tipo;
         std::string sprite;
+
+        //indica si el item sigue disponible en el mapa
+        bool activo;
+
     //Métodos de los items
     public:
         //Constructor para inicializar el item con su posición y sprite
         Items(int x, int y, int tipo);
         //movimientos
         void usar();
+
         //Getters para obtener la posición y el sprite del item
         int getX();
         int getY();
         std::string getSprite();
         int getTipo();
 
+        bool estaActivo();
 };
 
 #endif

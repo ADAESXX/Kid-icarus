@@ -32,6 +32,7 @@ private:
     int velocidad;
     int direccion;
     int framesMovimiento;
+    bool vivo;
 
 public:
     //constructor para inicializar el enemigo con su posición, tipo, valor, estado de aparición y velocidad
@@ -44,7 +45,7 @@ public:
         int velocidad
     );
 
-    //métodos de la clase Enemigo 
+    //métodos de la clase Enemigo
     //Mapa& mapa sirve para pasar una referencia al mapa del juego, lo que permite al enemigo interactuar con el entorno y detectar colisiones
     void actualizar(Mapa& mapa) override;
     void mover(Mapa& mapa);
@@ -54,6 +55,7 @@ public:
     int getValorEnemigo() const;
     bool getAparecido() const;
     int getVelocidad() const;
+    bool estaVivo() const;
 };
 
 #endif

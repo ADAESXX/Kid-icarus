@@ -32,7 +32,6 @@ class Jugador : public Entidad {
         void saltar();
         void disparar();
         void morir();
-        //algunas aun no se impplementan
         void recogerCorazon();
         void aplicarGravedad(Mapa& mapa);
         void actualizar(Mapa& mapa) override;

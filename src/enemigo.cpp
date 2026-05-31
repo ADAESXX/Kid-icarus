@@ -22,6 +22,7 @@ Enemigo::Enemigo(
     //inicialización de atributos específicos de la clase Enemigo
     direccion = 1;
     framesMovimiento = 0;
+    vivo = true;
 
     switch(tipo) {
 
@@ -51,7 +52,7 @@ void Enemigo::mover(Mapa& mapa) {
 
     // si hay piso, intenta avanzar en la dirección actual
     if(direccion == 1) {
-    
+
         if(mapa.esSolido(x + 1, y) ||
            !mapa.esSolido(x + 1, y + 1)) {
             //cambia direccion hacia la izquierda si encuentra un bloque sólido o un precipicio
@@ -78,30 +79,40 @@ void Enemigo::mover(Mapa& mapa) {
 }
 
 void Enemigo::actualizar(Mapa& mapa) {
+
+    if(!vivo)
+        return;
+
     //contador para controlar la frecuencia de movimientos del enemigo
     framesMovimiento++;
 
     // mover cada 6 frames
     if(framesMovimiento < 6)
         return;
+
     //resetea el contador después de mover para mantener un ritmo constante de movimiento
     framesMovimiento = 0;
 
     mover(mapa);
 }
-//falta implmentar
+
+//implementación básica del ataque del enemigo
 void Enemigo::atacar() {
+
+    if(!vivo)
+        return;
 }
-//por el momento solo se reinicia la posición del enemigo al morir
+
+// reinicia la posición del enemigo al morir
 void Enemigo::morir() {
-    x = 3;
-    y = 5;
+
+    vivo = false;
 }
 
 Enemigo::TipoEnemigo Enemigo::getTipo() const {
     return tipo;
 }
-//mejorar
+
 int Enemigo::getValorEnemigo() const {
     return valorEnemigo;
 }
@@ -112,4 +123,8 @@ bool Enemigo::getAparecido() const {
 
 int Enemigo::getVelocidad() const {
     return velocidad;
+}
+
+bool Enemigo::estaVivo() const {
+    return vivo;
 }
