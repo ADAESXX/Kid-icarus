@@ -14,7 +14,7 @@
 class EventManager {
 
     private:
-|       //cola para almacenar los eventos que ocurren en el juego
+       //cola para almacenar los eventos que ocurren en el juego
         std::queue<Evento> colaEventos;
 
     public:

@@ -1,3 +1,6 @@
+//Modificaciones por: Dulce Granados 
+//Fecha: 31/05/26
+
 #include "juego.h"
 #include "pantallas.h"
 #include <algorithm>
@@ -13,10 +16,9 @@ Juego::Juego()
 
 void Juego::iniciar() {
 
-    cargarNivel();
+    cargarNivel(nivelActual);
     loop();
-    cargarNivel();
-    loop();
+    
 
     Pantallas pantallas;
     if (gano)    pantallas.victoria();
@@ -113,8 +115,16 @@ void Juego::actualizar() {
     // meta
     const auto& nivel = mapa.getNivel();
     if (nivel[jugador.getY()][jugador.getX()] == 'G') {
+        
+        nivelActual++;
+        if(nivelActual > 4){
         gano = true;
         ejecutando = false;
+        }
+        else{
+            cargarNivel(nivelActual);
+            jugador.reiniciarPosicion(3,14);
+        }
     }
 
     if (jugador.getVidas() <= 0) {
@@ -156,7 +166,12 @@ void Juego::renderizar() {
     refresh();
 }
 
-void Juego::cargarNivel() {
+void Juego::cargarNivel(int nivel) {
+
+    enemigos.clear();
+    proyectiles.clear();
+
+    if (nivel == 1){
 
     mapa.cargarNivel({
 
@@ -180,8 +195,6 @@ void Juego::cargarNivel() {
 
     });
 
-    enemigos.clear();
-
     enemigos.push_back(
         Enemigo(
             20,
@@ -203,6 +216,163 @@ void Juego::cargarNivel() {
             1
         )
     );
+    }
+        else if(nivel == 2)
+    {
+        mapa.cargarNivel({
+
+
+        "============================================================",
+        "#                                                          #",
+        "#             G                                            #",
+        "#           ======                                         #",
+        "#                   ========                               #",
+        "#                             ======                       #",
+        "#                                                          #",
+        "#                                     ======               #",
+        "#                          =========                       #",
+        "#                                                          #",
+        "#                  ======                                  #",
+        "#                                                          #",
+        "#        ========                                          #",
+        "#                                                          #",
+        "#                                                          #",
+        "#                                                          #",
+        "============================================================"    
+
+
+
+        });
+
+        enemigos.push_back(
+            Enemigo(
+                14,
+                12,
+                Enemigo::TipoEnemigo::CAMINANTE,
+                100,
+                true,
+                1
+            )
+    );
+
+        enemigos.push_back(
+            Enemigo(
+                24,
+                8,
+                Enemigo::TipoEnemigo::CAMINANTE,
+                100,
+                true,
+                1
+            )
+    );
+
+        enemigos.push_back(
+            Enemigo(
+                34,
+                7,
+                Enemigo::TipoEnemigo::VOLADOR,
+                100,
+                true,
+                1
+            )
+    );
+    }
+
+    else if(nivel == 3)
+    {
+
+    mapa.cargarNivel({
+
+    "============================================================",
+    "#                              G                           #",
+    "#                              ========                    #",
+    "#                                                          #",
+    "#                                            ========      #",
+    "#                                                          #",
+    "#                                ========                  #",
+    "#                                                          #",
+    "#                        ========                          #",
+    "#                                                          #",
+    "#                 ========                                 #",
+    "#                                                          #",
+    "#      ========                                            #",
+    "#                                                          #",
+    "#                                                          #",
+    "#                                                          #",
+    "============================================================"
+        });
+
+    enemigos.push_back(
+    Enemigo(
+        12,
+        12,
+        Enemigo::TipoEnemigo::CAMINANTE,
+        100,
+        true,
+        1
+    )
+    );
+
+    enemigos.push_back(
+    Enemigo(
+        24,
+        8,
+        Enemigo::TipoEnemigo::CAMINANTE,
+        100,
+        true,
+        1
+    )
+    );
+
+    enemigos.push_back(
+    Enemigo(
+        40,
+        6,
+        Enemigo::TipoEnemigo::VOLADOR,
+        100,
+        true,
+        1
+    )
+    );
+    }
+    
+        else if(nivel == 4)
+    {
+
+    mapa.cargarNivel({
+
+    "============================================================",
+    "#                                               G          #",
+    "#                                              =====       #",
+    "#                                                          #",
+    "#                                         =====            #",
+    "#                                                          #",
+    "#                                =====                     #",
+    "#                                                          #",
+    "#                         =====                            #",
+    "#                                                          #",
+    "#                  =====                                   #",
+    "#                                                          #",
+    "#           =====                                          #",
+    "#                                                          #",
+    "#    =====                                                 #",
+    "#                                                          #",
+    "============================================================"
+        });
+
+    enemigos.push_back(
+        Enemigo(
+            48,
+            2,
+            Enemigo::TipoEnemigo::MEDUSA,
+            500,
+            true,
+            1
+        )
+    );
+ }
+
+
 }
 
 void Juego::terminar() {

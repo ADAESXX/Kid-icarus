@@ -24,6 +24,7 @@ class Juego {
         bool ejecutando;
         bool gano = false;
         bool perdio = false;
+        int nivelActual = 1;
 
     public:
         //PARTE PRINCIPAL DEL JUEGO - fundamental para iniciar el juego, procesar la lógica principal y renderizar los gráficos
@@ -34,7 +35,7 @@ class Juego {
         void actualizar();
         //renderizar es el método encargado de dibujar el estado actual del juego en la pantalla, mostrando al jugador, los enemigos, los proyectiles y el mapa
         void renderizar();
-        void cargarNivel();
+        void cargarNivel(int nivel);
         void terminar();
 };
 

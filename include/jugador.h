@@ -2,6 +2,8 @@
 //Descripción: Declaración de la clase Jugador para el juego Kid Icarus
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Modificaciones por: Dulce Granados 
+//Fecha: 31/05/26
 
 #ifndef JUGADOR_H
 #define JUGADOR_H
@@ -38,6 +40,8 @@ class Jugador : public Entidad {
         int getVidas() const;
         int getPuntaje() const;
         int getDireccionX() const { return direccionX; }
+
+        void reiniciarPosicion(int nuevoX, int nuevoY);
 
 };
 

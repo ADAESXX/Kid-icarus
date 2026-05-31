@@ -2,6 +2,8 @@
 //Descripción: Implementación de la clase Jugador para el juego Kid Icarus
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Modificacones por: Dulce Granados
+//Fecha: 31/05/26
 
 
 #include "jugador.h"
@@ -142,4 +144,10 @@ int Jugador::getVidas() const {
 
 int Jugador::getPuntaje() const {
     return puntaje;
+}
+
+void Jugador::reiniciarPosicion(int nuevoX, int nuevoY)
+{
+    x = nuevoX;
+    y = nuevoY;
 }
