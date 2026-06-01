@@ -16,6 +16,7 @@ Enemigo::Enemigo(
     bool aparecido,
     int velocidad
 )
+//lista de inicializacion
 : Entidad(x, y, "X"),
   tipo(tipo),
   valorEnemigo(valorEnemigo),
@@ -28,6 +29,7 @@ Enemigo::Enemigo(
     framesVol=0;
     volDir=0;
     vivo = true;
+    golpesRecibidos = 0;
 
     switch(tipo) {
 
@@ -135,4 +137,18 @@ int Enemigo::getVelocidad() const {
 
 bool Enemigo::estaVivo() const {
     return vivo;
+}
+
+void Enemigo::recibirDanio() {
+
+    if(tipo == TipoEnemigo::MEDUSA) {
+
+        golpesRecibidos++;
+
+        if(golpesRecibidos >= 20)
+            morir();
+
+    } else {
+        morir();
+    }
 }

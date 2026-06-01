@@ -34,6 +34,8 @@ class Enemigo : public Entidad {
         //sentido de la oscilacion
         int volDir;
         bool vivo;
+        //para medusa
+        int golpesRecibidos;
 
     public:
         //constructor para inicializar el enemigo con su posición, tipo, valor, estado de aparición y velocidad
@@ -58,6 +60,7 @@ class Enemigo : public Entidad {
         bool getAparecido() const;
         int getVelocidad() const;
         bool estaVivo() const; 
+        void recibirDanio();
 };
 
 #endif

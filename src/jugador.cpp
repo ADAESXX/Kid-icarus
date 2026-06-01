@@ -6,9 +6,6 @@
 //Modificacones por: Dulce Granados
 //Fecha: 31/05/26
 //Estado:Completo
-//Modificaciones realizadas:
-    //Agregue los dos metodos nuevos que defini en .h
-    //agregué variables nuevas
 
 
 #include "jugador.h"

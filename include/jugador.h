@@ -6,9 +6,7 @@
 //Modificaciones por: Dulce Granados 
 //Fecha: 31/05/26
 //Estado. completa
-//Modificaciones realizadas:
-    //agregue la variable de salud, escudo, xinicio y yinicio
-    //inclui el metodo de recibir daño, agregar puntaje, activar escudo, etc.
+
 
 #ifndef JUGADOR_H
 #define JUGADOR_H
@@ -32,6 +30,7 @@ class Jugador : public Entidad {
         int invuln;
         //variables para manejar movimiento suave y colisiones por pixel
         int direccionX;
+    
         float vx;
         float vy;
         float xReal;

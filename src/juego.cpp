@@ -4,10 +4,7 @@
 //Modificaciones por: Dulce Granados 
 //Fecha: 31/05/26
 //Estado: Completo
-//Modificaciones:
-    //Agregué librerias
-    //Inicialice varias variables en el contructor
-    //Este si lo cambie en todo :)
+
 #include "juego.h"
 #include "pantallas.h"
 #include <algorithm>
@@ -134,7 +131,7 @@ void Juego::cargarNivel(int n) {
         case 4:
         default:
             //jefe final
-            enemigos.push_back(Enemigo(40, 2, TE::MEDUSA,    500, true, 0));
+            enemigos.push_back(Enemigo(40, 3, TE::MEDUSA,    500, true, 0));
             enemigos.push_back(Enemigo(20, 5, TE::VOLADOR,   150, true, 1));
             enemigos.push_back(Enemigo(16, 9, TE::CAMINANTE, 100, true, 1));
             //corazon
@@ -273,13 +270,17 @@ void Juego::hiloProyectiles() {
             for(auto& e : enemigos) {
                 if(!e.estaVivo()) continue;
                 if(std::abs(p.getX() - e.getX()) <= 1 && p.getY() == e.getY()) {
-                    e.morir();
-                    p.desactivar();
+
+                e.recibirDanio();
+                p.desactivar();
+                if(!e.estaVivo()) {
                     enemigosDerrotados++;
                     jugador.agregarPuntaje(100);
-                    items.push_back(Items(e.getX(), e.getY(), 1)); // suelta corazon
-                    break;
+                    items.push_back(Items(e.getX(), e.getY(), 1));
                 }
+
+                break;
+            }
             }
         }
         // Eliminar flechas inactivas y DEVOLVER un permiso al semaforo por cada una
@@ -511,7 +512,7 @@ void Juego::iniciar(bool ia) {
     pthread_join(thS, nullptr);
 
     Pantallas pantallas;
-    if(gano)        pantallas.victoria();
+    if(gano) pantallas.victoria();
     else if(perdio) pantallas.derrota();
 
     nodelay(stdscr, FALSE);   // volver a entrada bloqueante
@@ -554,7 +555,7 @@ void Juego::decidirIA() {
 
     // Leer el terreno inmediato para decidir el salto.
     bool paredAdelante = mapa.esSolido(jx + dir, jy);       // bloque al frente
-    bool bordeAdelante = !mapa.esSolido(jx + dir, jy + 1);  // se acaba el piso
+    bool bordeAdelante = !mapa.esSolido(jx + dir, jy + 3);  // se acaba el piso
 
     // SALTAR: para esquivar enemigos, sortear una pared o subir a la siguiente
     // plataforma justo al llegar a su borde. saltar() solo actua si Pit esta

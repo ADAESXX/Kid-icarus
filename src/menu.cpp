@@ -161,7 +161,7 @@ void Menu::iniciarJuego() {
     clear();
 
     Juego juego;
-    juego.iniciar();
+    juego.iniciar(modoIA);
     // Guardar el resultado real de la partida en el marcador persistente.
     ultimoPuntaje.setDatos(juego.getCorazonesFinal(),
                            juego.getVidasFinal(),
@@ -268,7 +268,7 @@ void Menu::instrucciones() {
     mvprintw(26, 60, "W       -> Saltar");
     mvprintw(27, 60, "SPACE   -> Disparar");
     mvprintw(28, 60, "P       -> Pausar / Reanudar");
-    mvprintw(29, 60, "Q       -> Salir del nivel");
+    mvprintw(29, 60, "Q       -> Salir del nivel - presione 2 veces");
 
     mvprintw(32, 55, "¡Derrota enemigos y alcanza el Olimpo!");
     attroff(COLOR_PAIR(3));
