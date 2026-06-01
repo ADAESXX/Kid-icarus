@@ -24,3 +24,7 @@ puntuación en tiempo real.
 escenario.
 • El juego finalizará cuando el jugador pierda todas sus vidas o alcance la parte superior/final
 del nivel.
+
+Para compilar
+- g++ src/*.cpp -Iinclude -o kidicarus -lncurses
+- ./kidicarus
