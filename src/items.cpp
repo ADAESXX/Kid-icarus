@@ -1,30 +1,52 @@
 //Nombre del archivo: items.cpp
 //Descripción: Implementación de la clase Items para el juego Kid Icarus
-//Autor: Abigail Escobar
+//Autor 1: Abigail Escobar
+//Autor 2: Maria Renée
 //Fecha: 18/05/2026
+//Estado: completo
+//Modificaciones: elimine lo de esta Activo porque es el juego que lo controla
 
 #include "items.h"
-//Aun no se ha conectado con el programa principal
+
 Items::Items(int x, int y, int tipo)
     : x(x),
       y(y),
       tipo(tipo)
 {
     switch(tipo) {
-        //Corazon, aumenta vidas
+        //Corazon, recupera salud / suma puntos
         case 1:
             sprite = "C";
             break;
+
         //Espada, aumenta puntaje
         case 2:
             sprite = "A";
             break;
-        //Escudo, protege al jugador de un ataque enemigo
+
+        //Escudo, abbsorbe un golpe
         case 3:
             sprite = "S";
             break;
     }
 }
-//falta implementar la lógica de uso de los items, por ahora solo se muestra el sprite correspondiente
-void Items::usar() {    
+
+// El efecto sucede en el juego, pero este es la documentacion del contrato
+void Items::usar() {}
+
+//Obtiene la posición y el sprite del item
+int Items::getX() {
+    return x;
+}
+
+int Items::getY() {
+    return y;
+}
+
+std::string Items::getSprite() {
+    return sprite;
+}
+
+int Items::getTipo() {
+    return tipo;
 }

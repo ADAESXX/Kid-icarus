@@ -1,11 +1,17 @@
 //Nombre del archivo: jugador.cpp
 //Descripción: Implementación de la clase Jugador para el juego Kid Icarus
-//Autor: Abigail Escobar
+//Autor 1: Abigail Escobar
+//Autor 2: Maria Renée
 //Fecha: 16/05/2026
+//Modificacones por: Dulce Granados
+//Fecha: 31/05/26
+//Estado:Completo
+//Modificaciones realizadas:
+    //Agregue los dos metodos nuevos que defini en .h
+    //agregué variables nuevas
 
 
 #include "jugador.h"
-#include "enemigo.h"
 
 Jugador::Jugador(int x, int y)
     : Entidad(x, y, "P")
@@ -15,12 +21,24 @@ Jugador::Jugador(int x, int y)
     direccionX = 0;
 
     vidas = 3;
+    salud=100;
     puntaje = 0;
+    escudo=false;
+    invuln= 0;
 
+    xReal = (float)x;
     yReal = y;
     vy = 0;
-    xReal = (float)x;
     vx = 0;
+    xInicio = x;
+    yInicio = y;
+}
+void Jugador::setInicio(int nx, int ny) { xInicio = nx; yInicio = ny; }
+
+void Jugador::colocar(int nx, int ny) {
+    x = nx; y = ny;
+    xReal = (float)nx; yReal = (float)ny;
+    vy = 0; saltando = false;
 }
 
 void Jugador::moverIzquierda(Mapa& mapa) {
@@ -68,6 +86,7 @@ void Jugador::aplicarGravedad(Mapa& mapa) {
 }
 
 void Jugador::actualizar(Mapa& mapa) {
+    if(invuln > 0) invuln--;
     aplicarGravedad(mapa);
     // movimiento horizontal suave mientras salto, lo que permite al jugador moverse lateralmente con mayor fluidez durante el salto, en lugar de moverse solo por celdas enteras
     if (saltando && direccionX != 0) {
@@ -115,28 +134,58 @@ void Jugador::actualizar(Mapa& mapa) {
     }
 
 }
-//falta implementar
-void Jugador::disparar() {
+
+//la flecha la crea Juego (hilo del jugador)
+void Jugador::disparar() {}
+
+void Jugador::recibirDanio(int d) {
+    // todavia invulnerable: ignora el golpe
+    if(invuln > 0) return;
+    // el escudo absorbe
+    if(escudo) { escudo = false; invuln = 30; return; }
+    salud -= d;
+    invuln = 20;
+    if(salud <= 0) morir();
 }
+
 
 void Jugador::morir() {
     vidas--;
-    // reiniciar posición del jugador al morir, lo que permite al jugador volver a intentarlo desde un punto de partida conocido después de perder una vida
-    x = 3;
-    y = 11;
-    yReal = 11.0f;
-    vy = 0;
+    salud = 100;
+    x = xInicio; 
+    y = yInicio;
+    xReal = (float)xInicio; 
+    yReal = (float)yInicio;
+    vy = 0; 
     saltando = false;
+    invuln = 40;
 }
 
 void Jugador::recogerCorazon() {
-    vidas++;
+    salud += 20;
+    if(salud > 100) salud = 100;
+    puntaje += 10;
+}
+
+void Jugador::agregarPuntaje(int p) { 
+    puntaje += p; 
+}
+void Jugador::activarEscudo() { 
+    escudo = true; 
 }
 
 int Jugador::getVidas() const {
     return vidas;
 }
 
+int Jugador::getSalud() const {
+    return salud;
+}
+
 int Jugador::getPuntaje() const {
     return puntaje;
+}
+
+bool Jugador::tieneEscudo() const{
+    return escudo;
 }

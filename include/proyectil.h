@@ -2,6 +2,7 @@
 //Descripción: Declaración de la clase Proyectil para el juego Kid Icarus
 //Autor: Abigail Escobar   
 //Fecha: 16/05/2026
+//Estado: completo
 
 #ifndef PROYECTIL_H
 #define PROYECTIL_H
@@ -14,13 +15,17 @@ class Proyectil {
         int x;
         int y;
         int direccion; 
+        //Componente vertical para las bolas de fuego
+        int direccionY;
         int velocidad;
         bool activo;
         std::string sprite;
 
     public:
-        //métodos de la clase Proyectil
+        //constructor para las flechas del jugador
         Proyectil(int x, int y, int direccion);
+        //constructir generl (permite mov en x y y)
+        Proyectil(int x, int y, int dx, int dy, const std::string& spr);
         void mover();
         int getX() const;
         int getY() const;

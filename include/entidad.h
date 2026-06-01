@@ -1,7 +1,11 @@
-//Nombre del archivo: entidad.h
-//Descripción: Declaración de la clase Entidad, que es la clase base para Jugador y Enemigo en el juego Kid Icarus
-//Autor: Abigail Escobar
-//Fecha: 18/05/2026
+//Nombre del archivo: items.h
+//Descripción: Declaración de la clase Items para el juego Kid Icarus
+//Autor 1: Abigail Escobar
+//Autor 2: Maria Renée
+//Fecha: 16/05/2026
+//Estado: completo
+//Modificacion: elimine virtual ~Entidad() = default; porque estaba dando problemas y no es necesaria
+
 
 #ifndef ENTIDAD_H
 #define ENTIDAD_H
@@ -11,9 +15,7 @@
 class Mapa;
 
 class Entidad {
-
     protected:
-
         int x;
         int y;
         //velocidades para movimiento suave
@@ -23,9 +25,8 @@ class Entidad {
         std::string sprite;
 
     public:
-
         Entidad(int x, int y, std::string sprite);
-        //método para actualizar la entidad, que debe ser implementado por las clases derivadas como Jugador y Enemigo
+        //método para actualizar la entidad
         virtual void actualizar(Mapa& mapa) = 0;
         //Getters para obtener la posición y el sprite de la entidad
         int getX() const;

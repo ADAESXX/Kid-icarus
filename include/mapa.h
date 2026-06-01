@@ -2,6 +2,7 @@
 //Descripción: Declaración de los fondos para el juego Kid Icarus
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Estado: Completo
 
 #ifndef MAPA_H
 #define MAPA_H

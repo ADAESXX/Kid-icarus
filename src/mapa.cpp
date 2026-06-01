@@ -2,17 +2,16 @@
 //Descripción: Implementación de la clase Mapa para el juego Kid Icarus
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Estado: Completo
 
 #include "mapa.h"
 
-void Mapa::cargarNivel(
-    const std::vector<std::string>& nuevoNivel
-) {
+void Mapa::cargarNivel(const std::vector<std::string>& nuevoNivel) {
     nivel = nuevoNivel;
 }
 //Verifica si hay limites (paredes o piso)
 bool Mapa::esSolido(int x, int y) const {
-    //verifica limites del mapa
+    //verifica limites del mapa, es decir si se salen de los bordes del mapa
     if(y < 0 || y >= nivel.size())
         return true;
     //verifica limites horizontales (paredes)

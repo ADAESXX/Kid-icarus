@@ -2,6 +2,7 @@
 //Descripción: Declaración de las funciones para mostrar las pantallas de inicio, victoria y derrota del juego Kid Icarus
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Estado: completo
 
 #ifndef PANTALLAS_H
 #define PANTALLAS_H

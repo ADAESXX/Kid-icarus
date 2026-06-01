@@ -4,9 +4,11 @@
 //Autor 2: Dulce Granados
 //Fecha: 16/05/2026
 //Modificaciones realizadas por: Abigail Escobar
+//Estado: completo
 
 #include <iostream>
 #include <cstdlib>
+//limits sirve para obtener el valor máximo de un tipo de dato
 #include <limits>
 #include <thread>
 #include <chrono>
@@ -16,6 +18,7 @@
 #include "menu.h"
 #include "juego.h"
 #include "pantallas.h"
+#include "puntaje.h"
 
 using namespace std;
 
@@ -30,6 +33,8 @@ void Menu::mostrarMenu() {
     //sirve para habilitar la captura de teclas especiales como las flechas del teclado, lo que es esencial para navegar por el menú usando las flechas arriba y abajo
     //pertenece a la librería ncurses
     keypad(stdscr, TRUE);
+    //El menu bloquea esperando teclas
+    nodelay(stdscr, FALSE); 
     //ciclo infinito
     while(true) {
 
@@ -108,23 +113,65 @@ void Menu::mostrarMenu() {
     }
 }
 
-void Menu::iniciarJuego() {
-    //inicialización de ncurses para el juego, lo que permite mostrar gráficos y capturar la entrada del usuario de manera más avanzada durante el juego
-    initscr();
-    noecho();
-    cbreak();
+int Menu::seleccionarModalidad() {
+    int opcion = 1;
     keypad(stdscr, TRUE);
-    //es de ncurses y permite que getch() no bloquee la ejecución del programa
-    nodelay(stdscr, TRUE);
+    nodelay(stdscr, FALSE);
+
+    while(true) {
+        clear();
+        attron(A_BOLD);
+        mvprintw(6, 50, "==============================");
+        mvprintw(7, 53, "SELECCIONA MODALIDAD");
+        mvprintw(8, 50, "==============================");
+
+        if(opcion == 1) attron(A_REVERSE);
+        mvprintw(10, 53, "1. Un jugador");
+        if(opcion == 1) attroff(A_REVERSE);
+
+        if(opcion == 2) attron(A_REVERSE);
+        mvprintw(11, 53, "2. Computadora vs enemigos");
+        if(opcion == 2) attroff(A_REVERSE);
+
+        mvprintw(14, 48, "FLECHAS para elegir, ENTER para confirmar");
+        mvprintw(15, 48, "Q para volver al menu");
+        attroff(A_BOLD);
+        refresh();
+
+        int tecla = getch();
+        switch(tecla) {
+            case KEY_UP:   opcion = (opcion == 1) ? 2 : 1; break;
+            case KEY_DOWN: opcion = (opcion == 2) ? 1 : 2; break;
+            case 'q': case 'Q': return 0;
+            case 10: return opcion;
+        }
+    }
+}
+
+
+void Menu::iniciarJuego() {
+    int modo = seleccionarModalidad();
+    if(modo == 0) return;
+    bool modoIA = (modo == 2);
+
     clear();
-    mvprintw(10, 55, "Iniciando juego...");
+    mvprintw(10, 55, modoIA ? "Iniciando modo Computadora..." : "Iniciando juego...");
     refresh();
     this_thread::sleep_for(chrono::seconds(2));
     clear();
+
     Juego juego;
     juego.iniciar();
-    //endwin se usa para finalizar ncurses y restaurar la configuracion de la terminal
-    endwin();
+    // Guardar el resultado real de la partida en el marcador persistente.
+    ultimoPuntaje.setDatos(juego.getCorazonesFinal(),
+                           juego.getVidasFinal(),
+                           juego.getEnemigosFinal(),
+                           juego.getPuntajeFinal(),
+                           juego.ganoPartida());
+
+    nodelay(stdscr, FALSE);
+    keypad(stdscr, TRUE);
+    curs_set(0);
 }
 
 void Menu::instrucciones() {
@@ -149,7 +196,7 @@ void Menu::instrucciones() {
     int anchoLogo = strlen(logo[0]);
     int xLogo = (COLS - anchoLogo) / 3;
 
-     attron(COLOR_PAIR(1) | A_BOLD);
+    attron(COLOR_PAIR(1) | A_BOLD);
 
     for(int i = 0; i < lineasLogo; i++)
     {
@@ -158,7 +205,6 @@ void Menu::instrucciones() {
 
     attroff(COLOR_PAIR(1) | A_BOLD);
 
-    
     //bordes (columnas y alas)
     attron(COLOR_PAIR(2));
 
@@ -217,30 +263,25 @@ void Menu::instrucciones() {
  
 
     mvprintw(22, 60, "Usa estas teclas para jugar: ");
-    mvprintw(26, 60, "A       -> Mover izquierda");
-    mvprintw(27, 60, "D       -> Mover derecha");
-    mvprintw(28, 60, "W       -> Saltar");
-    mvprintw(29, 60, "SPACE   -> Disparar");
-    mvprintw(30, 60, "Q       -> Salir");
+    mvprintw(24, 60, "A       -> Mover izquierda");
+    mvprintw(25, 60, "D       -> Mover derecha");
+    mvprintw(26, 60, "W       -> Saltar");
+    mvprintw(27, 60, "SPACE   -> Disparar");
+    mvprintw(28, 60, "P       -> Pausar / Reanudar");
+    mvprintw(29, 60, "Q       -> Salir del nivel");
 
     mvprintw(32, 55, "¡Derrota enemigos y alcanza el Olimpo!");
-
     attroff(COLOR_PAIR(3));
 
     
     attron(COLOR_PAIR(1) | A_BLINK);
-
     mvprintw(33, 60, "Presiona ENTER para continuar");
-
     attroff(COLOR_PAIR(1) | A_BLINK);
 
     refresh();
 
-    int tecla;
-
-    while((tecla = getch()) != 10)
-    {
-    }
+    nodelay(stdscr, FALSE);
+    while(getch() != 10) { }
     
 }
 //hay que mejorar esta función para mostrar puntajes reales del juego, por ahora solo se muestran puntajes de ejemplo
@@ -248,14 +289,12 @@ void Menu::mostrarPuntajes() {
 
     clear();
     attron(A_BOLD);
-    mvprintw(10, 60, "============= PUNTAJES ==============");
-    mvprintw(12, 60, "Jugador 1: 1500 puntos");
-    mvprintw(13, 60, "Jugador 2: 1200 puntos");
+    Puntaje puntaje;
+    ultimoPuntaje.mostrarPuntaje();
     attroff(A_BOLD);
     mvprintw(16, 60, "Presiona ENTER para continuar");
     refresh();
     //espera a que el usuario presione ENTER para continuar
-    while(getch() != 10)
-    {
-    }
+    nodelay(stdscr, FALSE);
+    while(getch() != 10) { }
 }

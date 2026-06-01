@@ -2,9 +2,8 @@
 //Descripción: Implementación de las funciones para mostrar las pantallas de inicio, victoria y derrota del juego Kid Icarus    
 //Autor: Abigail Escobar
 //Fecha: 16/05/2026
+//Estado. completo
 
-#include <iostream>
-#include <cstdlib>
 #include <ncurses.h>
 #include <cstring>
 #include "pantallas.h"
@@ -14,7 +13,6 @@ using namespace std;
 void imprimirCentro(int y, const char* texto) {
     //strlen se usa para obtener la longitud del texto, lo que es necesario para calcular la posición horizontal correcta para centrar el texto en la pantalla
     int x = (COLS - strlen(texto)) / 2;
-
     mvprintw(y, x, "%s", texto);
 }
 

@@ -1,7 +1,10 @@
 //Nombre del archivo: items.h
 //Descripción: Declaración de la clase Items para el juego Kid Icarus
-//Autor: Abigail Escobar
+//Autor 1: Abigail Escobar
+//Autor 2: Maria Renée
 //Fecha: 16/05/2026
+//Estado: completo
+//Modificaciones: elimine estaActivo porque el juego lo maneja
 
 #ifndef ITEMS_H
 #define ITEMS_H
@@ -18,18 +21,19 @@ class Items {
             //3. Escudos para protegerse de los enemigos
         int tipo;
         std::string sprite;
+
     //Métodos de los items
     public:
         //Constructor para inicializar el item con su posición y sprite
         Items(int x, int y, int tipo);
         //movimientos
         void usar();
+
         //Getters para obtener la posición y el sprite del item
         int getX();
         int getY();
         std::string getSprite();
         int getTipo();
-
 };
 
 #endif
